@@ -47,11 +47,14 @@ function shuffle(array) {
     return array;
 }
 
-/* ALTERNATIVA SHUFFLE
-function shuffle(array) {
-	array.sort(function(a, b){return 0.5 - Math.random()});
-	return array;
-}*/
+function buildGame() {
+	shuffle(cardSymbol);
+	for (let i = 0; i < cardSymbol.length ; i++) {
+		$('#test').append(`<li class="card match"><i class="fa ${cardSymbol[i]}"></i></li>`);
+	}
+}
+
+buildGame();
 
 
 /*
