@@ -43,14 +43,13 @@ function shuffle(array) {
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
     }
-
     return array;
 }
 
 function buildGame() {
 	shuffle(cardSymbol);
 	for (let i = 0; i < cardSymbol.length ; i++) {
-		$('#test').append(`<li class="card match"><i class="fa ${cardSymbol[i]}"></i></li>`);
+		$('#test').append(`<li class="card"><i class="fa ${cardSymbol[i]}"></i></li>`);
 	}
 }
 
@@ -68,3 +67,11 @@ buildGame();
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
+function cardOpen(target) {
+	$(target).toggleClass('show open');
+	console.log('klinuti na kartu');
+}
+
+$('ul').on('click','li', function (evt) {
+	cardOpen(evt.target);
+});
