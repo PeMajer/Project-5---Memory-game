@@ -68,7 +68,7 @@ buildGame();
  */
 
 function cardOpen(target) {
-	$(target).toggleClass('show open');
+	$(target).addClass('show open');
 	console.log('klinuti na kartu');
 }
 
