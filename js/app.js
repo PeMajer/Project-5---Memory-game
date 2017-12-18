@@ -70,29 +70,43 @@ buildGame();
 function cardOpen(target) {
 	$(target).addClass('show open');
 	$(target).children().addClass('show open');   //pridam i <i> classu show open, aby neslo klikat i na ikonu 
-	console.log('klinuti na kartu');
+	console.log('otoceni karty');
 }
 
+function cardClose(target) {
+
+	$(target[0]).removeClass('show open');
+	console.log('otoceni karty zpet');
+	$(target[1]).removeClass('show open'); 
+	console.log('otoceni karty zpet');
+}
+
+
 function addCardToList(target) {
-	let card = $(target).children().attr('class');
+	let card = $(target).children().attr('class'); //zacileni na ikonu ktera je umistena v targetu - li;
+
 	if (cardList.length < 2) {
 		cardList.push(card);
-	} else {
-		//provededalsi akce
+		targets.push(target);  //pole pro ukladani jquerry cilu - karet
+	} 
+	
+	if (cardList.length === 2){		
+		cardList[0] === cardList[1] ? console.log('SHODA') : cardClose(targets); 
 		cardList = []; //vynuluje pole
+		targets = [];
 	}
 }
 
 let cardList = [];
-
+let targets = [];
 
 $('ul').on('click','li', function (evt) {
 
 	let show = $(evt.target).hasClass('show');
 	let match = $(evt.target).hasClass('match');
 	if ( !(show || match) ) {    //osetreni aby nesla karta otocit dvakrat
-		console.log('otoceni karty')
-		cardOpen(evt.target)
+		cardOpen(evt.target);
+		addCardToList(evt.target);
 	}
 
 });
