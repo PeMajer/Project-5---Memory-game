@@ -65,18 +65,28 @@ function buildGame() {
  */
 
 function cardOpen(target) {
-	$(target).toggleClass('show open');
-	$(target).children().addClass('show open');   //pridam i <i> classu show open, aby neslo klikat i na ikonu 
+	$(target).removeClass('close');
+	$(target).addClass('show open');
+	$(target).children().addClass('show open');   //pridam i <i> classu show open, aby neslo klikat i na ikonu
 }
 
 function cardClose(target) {
-	$(target[0]).toggleClass('show open');
-	$(target[1]).toggleClass('show open'); 
+	$(target[0]).removeClass('show open');
+	$(target[1]).removeClass('show open');
+	$(target[0]).addClass('close');
+	$(target[1]).addClass('close');
+	resetList();
 }
 
 function cardMatch (target) {
 	$(target[0]).addClass('match');
-	$(target[1]).addClass('match'); 
+	$(target[1]).addClass('match');
+	resetList();
+}
+
+function resetList(){
+	cardList = []; //vynuluje pole
+	targetList = [];
 }
 
 function addCardToList(target) {
@@ -84,23 +94,20 @@ function addCardToList(target) {
 
 	if (cardList.length < 2) {
 		cardList.push(card);
-		targets.push(target);  //pole pro ukladani jquerry cilu - karet
-	} 
-	
-	if (cardList.length === 2){		
-		cardList[0] === cardList[1] ? cardMatch(targets) : cardClose(targets); 
-		cardList = []; //vynuluje pole
-		targets = [];
+		targetList.push(target);  //pole pro ukladani jquerry cilu - karet
+	}
+
+	if (cardList.length === 2){
+		cardList[0] === cardList[1] ? cardMatch(targetList) : setTimeout('cardClose(targetList)',500);
 	}
 }
 
 let cardList = [];
-let targets = [];
+let targetList = [];
 
 buildGame();
 
 $('ul').on('click','li', function (evt) {
-
 	let show = $(evt.target).hasClass('show');
 	let match = $(evt.target).hasClass('match');
 	if ( !(show || match) ) {    //osetreni aby nesla karta otocit dvakrat
