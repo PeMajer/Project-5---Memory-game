@@ -78,8 +78,8 @@ function addCardToList(target) {
 	if (cardList.length < 2) {
 		cardList.push(card);
 	} else {
-		cardList = [];
-		cardList.push(card);
+		//provededalsi akce
+		cardList = []; //vynuluje pole
 	}
 }
 
