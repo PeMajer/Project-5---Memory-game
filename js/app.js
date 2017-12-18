@@ -68,19 +68,22 @@ buildGame();
  */
 
 function cardOpen(target) {
-	$(target).addClass('show open');
+	$(target).toggleClass('show open');
 	$(target).children().addClass('show open');   //pridam i <i> classu show open, aby neslo klikat i na ikonu 
 	console.log('otoceni karty');
 }
 
 function cardClose(target) {
-
-	$(target[0]).removeClass('show open');
-	console.log('otoceni karty zpet');
-	$(target[1]).removeClass('show open'); 
+	$(target[0]).toggleClass('show open');
+	$(target[1]).toggleClass('show open'); 
 	console.log('otoceni karty zpet');
 }
 
+function cardMatch (target) {
+	$(target[0]).addClass('match');
+	$(target[1]).addClass('match'); 
+	console.log('uzamceni karet');
+}
 
 function addCardToList(target) {
 	let card = $(target).children().attr('class'); //zacileni na ikonu ktera je umistena v targetu - li;
@@ -91,7 +94,7 @@ function addCardToList(target) {
 	} 
 	
 	if (cardList.length === 2){		
-		cardList[0] === cardList[1] ? console.log('SHODA') : cardClose(targets); 
+		cardList[0] === cardList[1] ? cardMatch(targets) : cardClose(targets); 
 		cardList = []; //vynuluje pole
 		targets = [];
 	}
