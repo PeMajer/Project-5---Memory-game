@@ -73,6 +73,19 @@ function cardOpen(target) {
 	console.log('klinuti na kartu');
 }
 
+function addCardToList(target) {
+	let card = $(target).children().attr('class');
+	if (cardList.length < 2) {
+		cardList.push(card);
+	} else {
+		cardList = [];
+		cardList.push(card);
+	}
+}
+
+let cardList = [];
+
+
 $('ul').on('click','li', function (evt) {
 
 	let show = $(evt.target).hasClass('show');
