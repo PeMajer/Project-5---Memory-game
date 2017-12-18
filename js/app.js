@@ -53,9 +53,6 @@ function buildGame() {
 	}
 }
 
-buildGame();
-
-
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -70,19 +67,16 @@ buildGame();
 function cardOpen(target) {
 	$(target).toggleClass('show open');
 	$(target).children().addClass('show open');   //pridam i <i> classu show open, aby neslo klikat i na ikonu 
-	console.log('otoceni karty');
 }
 
 function cardClose(target) {
 	$(target[0]).toggleClass('show open');
 	$(target[1]).toggleClass('show open'); 
-	console.log('otoceni karty zpet');
 }
 
 function cardMatch (target) {
 	$(target[0]).addClass('match');
 	$(target[1]).addClass('match'); 
-	console.log('uzamceni karet');
 }
 
 function addCardToList(target) {
@@ -102,6 +96,8 @@ function addCardToList(target) {
 
 let cardList = [];
 let targets = [];
+
+buildGame();
 
 $('ul').on('click','li', function (evt) {
 
