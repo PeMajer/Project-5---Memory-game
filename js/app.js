@@ -69,9 +69,17 @@ buildGame();
 
 function cardOpen(target) {
 	$(target).addClass('show open');
+	$(target).children().addClass('show open');   //pridam i <i> classu show open, aby neslo klikat i na ikonu 
 	console.log('klinuti na kartu');
 }
 
 $('ul').on('click','li', function (evt) {
-	cardOpen(evt.target);
+
+	let show = $(evt.target).hasClass('show');
+	let match = $(evt.target).hasClass('match');
+	if ( !(show || match) ) {    //osetreni aby nesla karta otocit dvakrat
+		console.log('otoceni karty')
+		cardOpen(evt.target)
+	}
+
 });
