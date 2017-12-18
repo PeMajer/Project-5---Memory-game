@@ -49,7 +49,7 @@ function shuffle(array) {
 function buildGame() {
 	shuffle(cardSymbol);
 	for (let i = 0; i < cardSymbol.length ; i++) {
-		$('#test').append(`<li class="card"><i class="fa ${cardSymbol[i]}"></i></li>`);
+		$('#game-deck').append(`<li class="card"><i class="fa ${cardSymbol[i]}"></i></li>`);
 	}
 }
 
