@@ -82,8 +82,8 @@ function addCardToList(target) {
 
 function compareCards(){
 	cardList[0] === cardList[1] ? cardMatch(targetList) : setTimeout('cardClose(targetList)',500);
-	counter();
-
+	counter();	
+	displayStars();
 }
 
 function counter () {
@@ -91,6 +91,9 @@ function counter () {
 	$('.moves').text(move);
 }
 
+function displayStars () {
+	move > 5 ? $('.fa-star').last().removeClass('fa-star').addClass('fa-star-o') : console.log('') ;
+}
 
 let cardList = [];
 let targetList = [];
