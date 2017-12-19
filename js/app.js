@@ -51,17 +51,14 @@ function cardOpen(target) {
 	$(target).children().addClass('show open');   //pridam i <i> classu show open, aby neslo klikat i na ikonu
 }
 
-function cardClose(target) {
-	$(target[0]).removeClass('show open');
-	$(target[1]).removeClass('show open');
-	$(target[0]).addClass('close');
-	$(target[1]).addClass('close');
+function cardClose(targets) {
+	$(targets).removeClass('show open');
+	$(targets).addClass('close');
 	resetList();
 }
 
-function cardMatch (target) {
-	$(target[0]).addClass('match');
-	$(target[1]).addClass('match');
+function cardMatch (targets) {
+	$(targets).addClass('match');
 	resetList();
 }
 
@@ -86,6 +83,7 @@ function addCardToList(target) {
 function compareCards(){
 	cardList[0] === cardList[1] ? cardMatch(targetList) : setTimeout('cardClose(targetList)',500);
 	counter();
+
 }
 
 function counter () {
