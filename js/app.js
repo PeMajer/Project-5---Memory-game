@@ -37,6 +37,8 @@ function shuffle(array) {
 
 function buildGame() {
 	move = 0;
+	matched = 0;
+	resetList();
 	$('.moves').text(move);   //set 0  moves
 	$('.fa-star-o').removeClass('fa-star-o').addClass('fa-star');
 	$('#game-deck').text(''); //deleting cadrs
@@ -60,6 +62,10 @@ function cardClose(targets) {
 
 function cardMatch (targets) {
 	$(targets).addClass('match');
+	matched++;
+	if (matched === cardSymbol.length/2) {
+		winGame();
+	}
 	resetList();
 }
 
@@ -70,12 +76,10 @@ function resetList(){
 
 function addCardToList(target) {
 	let card = $(target).children().attr('class'); //zacileni na ikonu ktera je umistena v targetu - li;
-
 	if (cardList.length < 2) {
 		cardList.push(card);
 		targetList.push(target);  //pole pro ukladani jquerry cilu - karet
 	}
-
 	if (cardList.length === 2) {
 		compareCards();
 	}
@@ -92,12 +96,16 @@ function counter () {
 	$('.moves').text(move);
 }
 
+function winGame () {
+	$('#game-deck').text('YOU ARE WINNING THE GAME');
+}
+
 function displayStars () {
-	if (move > 14) {
+	if (move > 15) {
 		$('#firststar').removeClass('fa-star').addClass('fa-star-o');
-	} else if (move > 11 ) {
+	} else if (move > 12 ) {
 		$('#secondstar').removeClass('fa-star').addClass('fa-star-o');
-	} else if (move > 8) {
+	} else if (move > 9) {
 		$('#thirdstar').removeClass('fa-star').addClass('fa-star-o');
 	}
 }
@@ -105,6 +113,7 @@ function displayStars () {
 let cardList = [];
 let targetList = [];
 let move = 0 ;
+let matched = 0;
 
 buildGame();
 
