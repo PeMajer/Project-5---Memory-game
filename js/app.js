@@ -48,7 +48,9 @@ function shuffle(array) {
 
 function buildGame() {
 	move = 0;
-	shuffle(cardSymbol);
+	$('.moves').text(move);   //set 0  moves  
+	$('#game-deck').text(''); //deleting cadrs
+	shuffle(cardSymbol);	  // shuffle cards
 	for (let i = 0; i < cardSymbol.length ; i++) {
 		$('#game-deck').append(`<li class="card"><i class="fa ${cardSymbol[i]}"></i></li>`);
 	}
@@ -82,7 +84,6 @@ function resetList(){
 function addCardToList(target) {
 	let card = $(target).children().attr('class'); //zacileni na ikonu ktera je umistena v targetu - li;
 
-
 	if (cardList.length < 2) {
 		cardList.push(card);
 		targetList.push(target);  //pole pro ukladani jquerry cilu - karet
@@ -104,8 +105,6 @@ function counter () {
 }
 
 
-
-
 let cardList = [];
 let targetList = [];
 let move = 0 ;
@@ -119,7 +118,10 @@ $('ul').on('click','li', function (evt) {
 		cardOpen(evt.target);
 		addCardToList(evt.target);
 	}
+});
 
+$('.restart').click(function() {
+	buildGame();
 });
 
 /*
