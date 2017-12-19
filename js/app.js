@@ -37,7 +37,8 @@ function shuffle(array) {
 
 function buildGame() {
 	move = 0;
-	$('.moves').text(move);   //set 0  moves  
+	$('.moves').text(move);   //set 0  moves
+	$('.fa-star-o').removeClass('fa-star-o').addClass('fa-star');
 	$('#game-deck').text(''); //deleting cadrs
 	shuffle(cardSymbol);	  // shuffle cards
 	for (let i = 0; i < cardSymbol.length ; i++) {
@@ -82,7 +83,7 @@ function addCardToList(target) {
 
 function compareCards(){
 	cardList[0] === cardList[1] ? cardMatch(targetList) : setTimeout('cardClose(targetList)',500);
-	counter();	
+	counter();
 	displayStars();
 }
 
@@ -92,7 +93,13 @@ function counter () {
 }
 
 function displayStars () {
-	move > 5 ? $('.fa-star').last().removeClass('fa-star').addClass('fa-star-o') : console.log('') ;
+	if (move > 14) {
+		$('#firststar').removeClass('fa-star').addClass('fa-star-o');
+	} else if (move > 11 ) {
+		$('#secondstar').removeClass('fa-star').addClass('fa-star-o');
+	} else if (move > 8) {
+		$('#thirdstar').removeClass('fa-star').addClass('fa-star-o');
+	}
 }
 
 let cardList = [];
