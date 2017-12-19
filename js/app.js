@@ -47,6 +47,7 @@ function shuffle(array) {
 }
 
 function buildGame() {
+	move = 0;
 	shuffle(cardSymbol);
 	for (let i = 0; i < cardSymbol.length ; i++) {
 		$('#game-deck').append(`<li class="card"><i class="fa ${cardSymbol[i]}"></i></li>`);
@@ -91,6 +92,7 @@ function resetList(){
 
 function addCardToList(target) {
 	let card = $(target).children().attr('class'); //zacileni na ikonu ktera je umistena v targetu - li;
+	
 
 	if (cardList.length < 2) {
 		cardList.push(card);
@@ -99,11 +101,21 @@ function addCardToList(target) {
 
 	if (cardList.length === 2){
 		cardList[0] === cardList[1] ? cardMatch(targetList) : setTimeout('cardClose(targetList)',500);
+		counter();
 	}
 }
 
+function counter () {
+	move++;
+	$('.moves').text(move);
+}
+
+
+
+
 let cardList = [];
 let targetList = [];
+let move = 0 ;
 
 buildGame();
 
