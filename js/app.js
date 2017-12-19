@@ -42,7 +42,9 @@ function buildGame() {
 	$('.moves').text(move);   //set 0  moves
 	$('.fa-star-o').removeClass('fa-star-o').addClass('fa-star');
 	$('#game-deck').text(''); //deleting cadrs
+
 	shuffle(cardSymbol);	  // shuffle cards
+
 	for (let i = 0; i < cardSymbol.length ; i++) {
 		$('#game-deck').append(`<li class="card"><i class="fa ${cardSymbol[i]}"></i></li>`);
 	}
@@ -60,7 +62,7 @@ function cardClose(targets) {
 	resetList();
 }
 
-function cardMatch (targets) {
+function cardMatch(targets) {
 	$(targets).addClass('match');
 	matched++;
 	if (matched === cardSymbol.length/2) {
@@ -91,16 +93,28 @@ function compareCards(){
 	displayStars();
 }
 
-function counter () {
+function counter() {
 	move++;
 	$('.moves').text(move);
 }
 
-function winGame () {
-	$('#game-deck').text('YOU ARE WINNING THE GAME');
+function winGame() {
+	let star = $('.fa-star').length;
+	star += (star > 1 ? ' stars' : ' star');
+	swal({
+		title: 'Congratulation, You won!',
+		text: `With ${move} moves and ${star}.`,
+		type: 'success',
+		confirmButtonText: 'Play again?',
+		confirmButtonColor: 'green'
+	}).then((result) => {
+		if (result.value) {
+			buildGame();
+		}
+	})
 }
 
-function displayStars () {
+function displayStars() {
 	if (move > 15) {
 		$('#firststar').removeClass('fa-star').addClass('fa-star-o');
 	} else if (move > 12 ) {
