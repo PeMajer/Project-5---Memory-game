@@ -39,7 +39,9 @@ function buildGame() {
 	move = 0;
 	matched = 0;
 	resetList();
-	$('.moves').text(move);   //set 0  moves
+	firstClick = true;
+	clearWatch();   //reset stopwatch
+ 	$('.moves').text(move);   //set 0  moves
 	$('.fa-star-o').removeClass('fa-star-o').addClass('fa-star');
 	$('#game-deck').text(''); //deleting cadrs
 
@@ -51,6 +53,10 @@ function buildGame() {
 }
 
 function cardOpen(target) {
+	if ( firstClick ) {
+		startWatch();
+		firstClick = false;
+	}
 	$(target).removeClass('close');
 	$(target).addClass('show open');
 	$(target).children().addClass('show open');   //pridam i <i> classu show open, aby neslo klikat i na ikonu
@@ -66,6 +72,7 @@ function cardMatch(targets) {
 	$(targets).addClass('match');
 	matched++;
 	if (matched === cardSymbol.length/2) {
+		stopWatch();
 		winGame();
 	}
 	resetList();
@@ -89,11 +96,11 @@ function addCardToList(target) {
 
 function compareCards(){
 	cardList[0] === cardList[1] ? cardMatch(targetList) : setTimeout('cardClose(targetList)',500);
-	counter();
+	moveCounter();
 	displayStars();
 }
 
-function counter() {
+function moveCounter() {
 	move++;
 	$('.moves').text(move);
 }
@@ -101,9 +108,10 @@ function counter() {
 function winGame() {
 	let star = $('.fa-star').length;
 	star += (star > 1 ? ' stars' : ' star');
+	let time = $('.timer').text();
 	swal({
 		title: 'Congratulation, You won!',
-		text: `With ${move} moves and ${star}.`,
+		text: `With ${move} moves and ${star} in time ${time}.`,
 		type: 'success',
 		confirmButtonText: 'Play again?',
 		confirmButtonColor: 'green'
@@ -126,6 +134,7 @@ function displayStars() {
 
 let cardList = [], targetList = [];
 let move = 0, matched = 0;
+let firstClick = Boolean(true);
 
 buildGame();
 
@@ -139,6 +148,7 @@ $('ul').on('click','li', function (evt) {
 });
 
 $('.restart').click(function() {
+	stopWatch();
 	buildGame();
 });
 
