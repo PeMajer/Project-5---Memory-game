@@ -115,16 +115,19 @@ h1 {
  */
 
 .score-panel {
-    text-align: left;
-    width: 345px;
+    text-align: center;
+    width: 600px;
     margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    -webkit-justify-content: space-between;
+            justify-content: space-between; 
 }
 
 .score-panel .stars {
-    margin: 0;
     padding: 0;
-    display: inline-block;
     margin: 0 5px 0 0;
+    display: inline-block;
 }
 
 .score-panel .stars li {
@@ -132,7 +135,17 @@ h1 {
     display: inline-block;
 }
 
+.score-panel .moves {
+    margin: 0;
+    padding: 0;
+}
+
+.score-panel .timer {
+    margin: 0;
+    padding: 0;
+    width: 100px;
+}
+
 .score-panel .restart {
-    float: right;
     cursor: pointer;
 }
