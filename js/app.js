@@ -132,25 +132,36 @@ function displayStars() {
 	}
 }
 
+function restartListener() {
+	$('.restart').click(function() {
+		stopWatch();
+		buildGame();
+	});
+}
+
+function cardListener() {
+	$('ul').on('click','li', function (evt) {
+		let show = $(evt.target).hasClass('show');
+		let match = $(evt.target).hasClass('match');
+		if ( !(show || match) ) {    //osetreni aby nesla karta otocit dvakrat
+			cardOpen(evt.target);
+			addCardToList(evt.target);
+		}
+	}); 
+}
+
 let cardList = [], targetList = [];
 let move = 0, matched = 0;
 let firstClick = Boolean(true);
 
 buildGame();
+cardListener();
+restartListener();
 
-$('ul').on('click','li', function (evt) {
-	let show = $(evt.target).hasClass('show');
-	let match = $(evt.target).hasClass('match');
-	if ( !(show || match) ) {    //osetreni aby nesla karta otocit dvakrat
-		cardOpen(evt.target);
-		addCardToList(evt.target);
-	}
-});
 
-$('.restart').click(function() {
-	stopWatch();
-	buildGame();
-});
+
+
+
 
 /*
  * set up the event listener for a card. If a card is clicked:
