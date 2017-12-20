@@ -123,11 +123,11 @@ function winGame() {
 }
 
 function displayStars() {
-	if (move > 15) {
+	if (move > 16) {
 		$('#firststar').removeClass('fa-star').addClass('fa-star-o');
-	} else if (move > 12 ) {
+	} else if (move > 13 ) {
 		$('#secondstar').removeClass('fa-star').addClass('fa-star-o');
-	} else if (move > 9) {
+	} else if (move > 10) {
 		$('#thirdstar').removeClass('fa-star').addClass('fa-star-o');
 	}
 }
