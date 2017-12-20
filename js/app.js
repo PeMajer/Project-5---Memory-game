@@ -124,6 +124,13 @@ function displayStars() {
 	}
 }
 
+function stopwatch(init){
+var dt = new Date();
+if(init === false){ alert (dt - time + ' msec ');}
+time=dt;
+}
+
+let time;
 let cardList = [];
 let targetList = [];
 let move = 0 ;
