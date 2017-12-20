@@ -127,7 +127,7 @@ function displayStars() {
 function stopwatch(init){
 var dt = new Date();
 if(init === false){ alert (dt - time + ' msec ');}
-time=dt;
+time=dt;	
 }
 
 let time;
