@@ -21,15 +21,38 @@ let cardSymbol = [
 	'fa-cube'
 ];
 
+let cardList = [], targetList = [];
+let move = 0, matched = 0;
+let firstClick = Boolean(true);
+
+buildGame();
+cardListener();
+restartListener();
+
+function restartListener() {
+	$('.restart').click(function() {
+		stopWatch();
+		buildGame();
+	});
+}
+
+function cardListener() {
+	$('ul').on('click','li', function (evt) {
+		let show = $(evt.target).hasClass('show');
+		let match = $(evt.target).hasClass('match');
+		if ( !(show || match) ) {    //osetreni aby nesla karta otocit dvakrat
+			cardOpen(evt.target);
+			addCardToList(evt.target);
+		}
+	}); 
+}
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
-
-
-//Shuffle function from http://stackoverflow.com/a/2450976
 
 function shuffle(array) {
  	array.sort(function() { return 0.5 - Math.random() });
@@ -62,27 +85,6 @@ function cardOpen(target) {
 	$(target).children().addClass('show open');   //pridam i <i> classu show open, aby neslo klikat i na ikonu
 }
 
-function cardClose(targets) {
-	$(targets).removeClass('show open');
-	$(targets).addClass('close');
-	resetList();
-}
-
-function cardMatch(targets) {
-	$(targets).addClass('match');
-	matched++;
-	if (matched === cardSymbol.length/2) {
-		stopWatch();
-		winGame();
-	}
-	resetList();
-}
-
-function resetList(){
-	cardList = []; //vynuluje pole
-	targetList = [];
-}
-
 function addCardToList(target) {
 	let card = $(target).children().attr('class'); //zacileni na ikonu ktera je umistena v targetu - li;
 	if (cardList.length < 2) {
@@ -97,12 +99,23 @@ function addCardToList(target) {
 function compareCards(){
 	cardList[0] === cardList[1] ? cardMatch(targetList) : setTimeout('cardClose(targetList)',500);
 	moveCounter();
-	displayStars();
+	displayStars();	
 }
 
-function moveCounter() {
-	move++;
-	$('.moves').text(move);
+function cardClose(targets) {
+	$(targets).removeClass('show open');
+	$(targets).addClass('close');
+	resetList();
+}
+
+function cardMatch(targets) {
+	$(targets).addClass('match');
+	matched++;
+	if (matched === cardSymbol.length/2) {
+		stopWatch();
+		winGame();
+	}
+	resetList();
 }
 
 function winGame() {
@@ -122,46 +135,25 @@ function winGame() {
 	})
 }
 
+function resetList(){
+	cardList = []; //vynuluje pole
+	targetList = [];
+}
+
+function moveCounter() {
+	move++;
+	$('.moves').text(move);
+}
+
 function displayStars() {
-	if (move > 16) {
+	if (move > 17) {
 		$('#firststar').removeClass('fa-star').addClass('fa-star-o');
-	} else if (move > 13 ) {
+	} else if (move > 14 ) {
 		$('#secondstar').removeClass('fa-star').addClass('fa-star-o');
-	} else if (move > 10) {
+	} else if (move > 11) {
 		$('#thirdstar').removeClass('fa-star').addClass('fa-star-o');
 	}
 }
-
-function restartListener() {
-	$('.restart').click(function() {
-		stopWatch();
-		buildGame();
-	});
-}
-
-function cardListener() {
-	$('ul').on('click','li', function (evt) {
-		let show = $(evt.target).hasClass('show');
-		let match = $(evt.target).hasClass('match');
-		if ( !(show || match) ) {    //osetreni aby nesla karta otocit dvakrat
-			cardOpen(evt.target);
-			addCardToList(evt.target);
-		}
-	}); 
-}
-
-let cardList = [], targetList = [];
-let move = 0, matched = 0;
-let firstClick = Boolean(true);
-
-buildGame();
-cardListener();
-restartListener();
-
-
-
-
-
 
 /*
  * set up the event listener for a card. If a card is clicked:
