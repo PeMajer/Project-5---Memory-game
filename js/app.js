@@ -124,17 +124,8 @@ function displayStars() {
 	}
 }
 
-function stopwatch(init){
-var dt = new Date();
-if(init === false){ alert (dt - time + ' msec ');}
-time=dt;	
-}
-
-let time;
-let cardList = [];
-let targetList = [];
-let move = 0 ;
-let matched = 0;
+let cardList = [], targetList = [];
+let move = 0, matched = 0;
 
 buildGame();
 
