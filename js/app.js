@@ -29,6 +29,8 @@ buildGame();
 cardListener();
 restartListener();
 
+
+
 function restartListener() {
 	$('.restart').click(function() {
 		stopWatch();
@@ -66,13 +68,15 @@ function buildGame() {
 	clearWatch();   //reset stopwatch
  	$('.moves').text(move);   //set 0  moves
 	$('.fa-star-o').removeClass('fa-star-o').addClass('fa-star');
-	$('#game-deck').text(''); //deleting cadrs
+	$('.deck').text(''); //deleting cadrs
 
 	shuffle(cardSymbol);	  // shuffle cards
 
 	for (let i = 0; i < cardSymbol.length ; i++) {
-		$('#game-deck').append(`<li class="card"><i class="fa ${cardSymbol[i]}"></i></li>`);
+		$('.deck').append(`<li class="card"><i class="fa ${cardSymbol[i]}"></i></li>`);
 	}
+
+	leaderBoard();
 }
 
 function cardOpen(target) {
@@ -97,7 +101,7 @@ function addCardToList(target) {
 }
 
 function compareCards(){
-	cardList[0] === cardList[1] ? cardMatch(targetList) : setTimeout('cardClose(targetList)',500);
+	cardList[0] === cardList[1] ? cardMatch(targetList) : setTimeout('cardClose(targetList)',300);
 	moveCounter();
 	displayStars();	
 }
@@ -121,7 +125,10 @@ function cardMatch(targets) {
 function winGame() {
 	let star = $('.fa-star').length;
 	star += (star > 1 ? ' stars' : ' star');
-	let time = $('.timer').text();
+	const time = $('.timer').text();
+	const result = {move,star,time};
+	console.log(result);
+	addResult(result);
 	swal({
 		title: 'Congratulation, You won!',
 		text: `With ${move} moves and ${star} in time ${time}.`,

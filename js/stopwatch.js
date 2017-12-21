@@ -15,7 +15,7 @@ function addTime() {
 }
 
 function startWatch () {
-   timeUnit = setInterval(addTime, 1000);
+    timeUnit = setInterval(addTime, 1000);
 }
 
 function stopWatch() {
