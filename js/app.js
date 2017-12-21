@@ -106,6 +106,7 @@ function compareCards(){
 	moveCounter();
 	displayStars();
 	if (win) {
+		stopWatch();
 		winGame();
 	}
 }
@@ -120,7 +121,6 @@ function cardMatch(targets) {
 	$(targets).addClass('match');
 	matched++;
 	if (matched === cardSymbol.length/2) {
-		stopWatch();
 		win = true;
 	}
 	resetList();
@@ -130,9 +130,7 @@ function winGame() {
 	let star = $('.fa-star').length;
 	star += (star > 1 ? ' stars' : ' star');
 	const time = $('.timer').text();
-	const result = {move,star,time};
-	console.log(result);
-	addResult(result);
+	addResult({move,star,time});
 	swal({
 		title: 'Congratulation, You won!',
 		text: `With ${move} moves and ${star} in time ${time}.`,
@@ -157,11 +155,11 @@ function moveCounter() {
 }
 
 function displayStars() {
-	if (move > 17) {
+	if (move > 18) {
 		$('#firststar').removeClass('fa-star').addClass('fa-star-o');
-	} else if (move > 14 ) {
+	} else if (move > 15 ) {
 		$('#secondstar').removeClass('fa-star').addClass('fa-star-o');
-	} else if (move > 11) {
+	} else if (move > 12) {
 		$('#thirdstar').removeClass('fa-star').addClass('fa-star-o');
 	}
 }
