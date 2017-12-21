@@ -3,8 +3,12 @@ function leaderBoard() {
 	const data = localStorage.getItem('results');
 	if (data) {
   		const results = JSON.parse(data);
+
   		$('<div class="leaderboard"><h1>LeaderBoard</h1><div>').insertAfter('.deck');
-  		$('.leaderboard').append('<h2> Moves:' + results.move + ' ' + results.star + '  ' + results.time + '</h2>');
+
+  		for (const res of results ) {
+	  		$('.leaderboard').append('<h2> Moves:' + res.move + ' ' + res.star + '  ' + res.time + '</h2>');
+	  	}
   		console.log('data v localu');
   		console.log(results);
 	}
@@ -12,5 +16,19 @@ function leaderBoard() {
 }
 
 function addResult(result){
-	localStorage.setItem('results', JSON.stringify(result));
+	const data = localStorage.getItem('results');
+	if (data) {
+	  		let results = JSON.parse(data);
+	  		results.push(result);
+	  		localStorage.setItem('results', JSON.stringify(results));
+	  	} else {
+	  		let results = [];
+	  		results.push(result);
+	  		localStorage.setItem('results', JSON.stringify(results));
+	  	}
+}
+
+
+function clearResults() {
+	localStorage.clear();
 }

@@ -24,6 +24,7 @@ let cardSymbol = [
 let cardList = [], targetList = [];
 let move = 0, matched = 0;
 let firstClick = Boolean(true);
+let win = Boolean(false);
 
 buildGame();
 cardListener();
@@ -46,7 +47,7 @@ function cardListener() {
 			cardOpen(evt.target);
 			addCardToList(evt.target);
 		}
-	}); 
+	});
 }
 
 /*
@@ -65,6 +66,7 @@ function buildGame() {
 	matched = 0;
 	resetList();
 	firstClick = true;
+	win = false;
 	clearWatch();   //reset stopwatch
  	$('.moves').text(move);   //set 0  moves
 	$('.fa-star-o').removeClass('fa-star-o').addClass('fa-star');
@@ -103,7 +105,10 @@ function addCardToList(target) {
 function compareCards(){
 	cardList[0] === cardList[1] ? cardMatch(targetList) : setTimeout('cardClose(targetList)',300);
 	moveCounter();
-	displayStars();	
+	displayStars();
+	if (win) {
+		winGame();
+	}
 }
 
 function cardClose(targets) {
@@ -117,7 +122,7 @@ function cardMatch(targets) {
 	matched++;
 	if (matched === cardSymbol.length/2) {
 		stopWatch();
-		winGame();
+		win = true;
 	}
 	resetList();
 }
