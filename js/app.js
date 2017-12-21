@@ -26,6 +26,9 @@ let move = 0, matched = 0;
 let firstClick = Boolean(true);
 let win = Boolean(false);
 
+let timeUnit;                          		//stopwatch variables
+let seconds = 0, minutes = 0, hours = 0;	//stopwatch variables
+
 buildGame();
 cardListener();
 restartListener();
@@ -192,6 +195,34 @@ function addResult(result){
 	  		results.push(result);
 	  		localStorage.setItem('results', JSON.stringify(results));
 	  	}
+}
+
+function startWatch () {
+    timeUnit = setInterval(addTime, 1000);
+}
+
+function addTime() {
+    seconds++;
+    if (seconds >= 60) {
+        seconds = 0;
+        minutes++;
+        if (minutes >= 60) {
+            minutes = 0;
+            hours++;
+        }
+    }
+    $('.timer').text( ((hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds)) );
+}
+
+function stopWatch() {
+    clearInterval(timeUnit);
+}
+
+function clearWatch() {
+    $('.timer').text('00:00:00');
+    seconds = 0;
+    minutes = 0;
+    hours = 0;
 }
 
 /*
