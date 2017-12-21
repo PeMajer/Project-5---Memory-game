@@ -1,8 +1,4 @@
-/*
- * Create a list that holds all of your cards
- */
-
-let cardSymbol = [
+let cardSymbol = [		//Create a list that holds all of cards
 	'fa-diamond',
 	'fa-paper-plane-o',
 	'fa-anchor',
@@ -21,7 +17,7 @@ let cardSymbol = [
 	'fa-cube'
 ];
 
-let cardList = [], targetList = [];
+let cardList = [], targetList = [];		//init variables
 let move = 0, matched = 0;
 let firstClick = Boolean(true);
 let win = Boolean(false);
@@ -170,13 +166,14 @@ function displayStars() {
 	}
 }
 
+//----------------------LEADERBOARD----------------------
 function leaderBoard() {
 	$('.leaderboard').remove();
 	const data = localStorage.getItem('results');
 	if (data) {
   		const results = JSON.parse(data);
 
-  		$('<div class="leaderboard"><h1>LeaderBoard</h1><div>').insertAfter('.deck');
+  		$('<div class="leaderboard"><h1>Leaderboard</h1><div>').insertAfter('.deck');
 
   		for (const res of results ) {
 	  		$('.leaderboard').append('<h2> Moves:' + res.move + ' ' + res.star + '  ' + res.time + '</h2>');
@@ -197,6 +194,7 @@ function addResult(result){
 	  	}
 }
 
+//----------------------STOPWATCH----------------------
 function startWatch () {
     timeUnit = setInterval(addTime, 1000);
 }
