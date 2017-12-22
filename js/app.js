@@ -118,7 +118,7 @@ function cardClose(targets) {
 }
 
 function cardMatch(targets) {
-	$(targets).addClass('match');
+	$(targets).addClass('match animated bounceIn');
 	matched++;
 	if (matched === cardSymbol.length/2) {
 		win = true;
@@ -173,7 +173,7 @@ function leaderBoard() {
 
   		$('<div class="leaderboard"><h1>Leaderboard</h1><div>').insertAfter('.deck');
 
-  		for (const res of results ) {
+  		for (let res of results ) {
 	  		$('.leaderboard').append('<h2> Moves:' + res.move + ' ' + res.star + '  ' + res.time + '</h2>');
 	  	}
 	}
