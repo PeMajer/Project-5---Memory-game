@@ -119,7 +119,7 @@ function cardClose(targets) {
 
 function cardMatch(targets) {
 	$(targets).removeClass('open');
-	$(targets).addClass('animated bounceIn match');
+	$(targets).addClass('match');
 	matched++;
 	if (matched === cardSymbol.length/2) {
 		win = true;

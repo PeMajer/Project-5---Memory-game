@@ -69,7 +69,6 @@ h1 {
     transform: rotateY(0);
     animation: open 0.5s;
     animation-direction: alternate;
-
     background: #02b3e4;
     cursor: default;
 }
@@ -87,7 +86,6 @@ h1 {
     transform: rotateY(0);
     animation: close 0.5s;
     animation-direction: alternate;
-
     background: #2e3d49;
     cursor: default;
 }
@@ -105,9 +103,44 @@ h1 {
 }
 
 .deck .card.match {
+    animation: match 0.75s;
+    animation-fill-mode: both;
     cursor: default;
     background: #02ccba;
     font-size: 33px;
+}
+
+@keyframes match {
+  from, 20%, 40%, 60%, 80%, to {
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  }
+
+  0% {
+    opacity: 0;
+    transform: scale3d(.3, .3, .3);
+  }
+
+  20% {
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+
+  40% {
+    transform: scale3d(.9, .9, .9);
+  }
+
+  60% {
+    opacity: 1;
+    transform: scale3d(1.03, 1.03, 1.03);
+  }
+
+  80% {
+    transform: scale3d(.97, .97, .97);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
 }
 
 /*
