@@ -102,7 +102,7 @@ function addCardToList(target) {
 }
 
 function compareCards(){
-	cardList[0] === cardList[1] ? cardMatch(targetList) : setTimeout('cardClose(targetList)',300);
+	cardList[0] === cardList[1] ? cardMatch(targetList) : cardClose(targetList);
 	moveCounter();
 	displayStars();
 	if (win) {
@@ -112,9 +112,15 @@ function compareCards(){
 }
 
 function cardClose(targets) {
-	$(targets).removeClass('show open');
-	$(targets).addClass('close');
-	resetList();
+	$(targets).removeClass('open');
+	$(targets).addClass('shaked');
+	$(targets).addClass('animated shake');
+	
+	setTimeout(function() {
+		$(targets).removeClass('animated shake show shaked');
+		$(targets).addClass('close');
+		resetList();
+	},300);
 }
 
 function cardMatch(targets) {
