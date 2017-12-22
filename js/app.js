@@ -19,8 +19,11 @@ let cardSymbol = [		//Create a list that holds all of cards
 
 let cardList = [], targetList = [];		//init variables
 let move = 0, matched = 0;
+
 let firstClick = Boolean(true);
 let win = Boolean(false);
+
+let fastClicking = Boolean(false);     //osetreni aby neslo kliknout na dalsi kartu behem zavirani predchozich karet
 
 let timeUnit;                          		//stopwatch variables
 let seconds = 0, minutes = 0, hours = 0;	//stopwatch variables
@@ -42,7 +45,7 @@ function cardListener() {
 	$('ul').on('click','li', function (evt) {
 		let show = $(evt.target).hasClass('show');
 		let match = $(evt.target).hasClass('match');
-		if ( !(show || match) ) {    //osetreni aby nesla karta otocit dvakrat
+		if ( !(show || match || fastClicking) ) {    //osetreni aby nesla karta otocit dvakrat a neslo kliknout na dalsi kartu pokud se predchozi karty zaviraji
 			cardOpen(evt.target);
 			addCardToList(evt.target);
 		}
@@ -115,12 +118,13 @@ function cardClose(targets) {
 	$(targets).removeClass('open');
 	$(targets).addClass('shaked');
 	$(targets).addClass('animated shake');
-	
+	fastClicking = true;
 	setTimeout(function() {
 		$(targets).removeClass('animated shake show shaked');
 		$(targets).addClass('close');
 		resetList();
-	},300);
+		fastClicking = false;
+	},500);
 }
 
 function cardMatch(targets) {
