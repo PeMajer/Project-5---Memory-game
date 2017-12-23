@@ -140,7 +140,7 @@ function winGame() {
 	let star = $('.fa-star').length;
 	star += (star > 1 ? ' stars' : ' star');
 	const time = $('.timer').text();
-	addResult({move,star,time});
+	let name = 'Anonymous';
 	swal({
 		title: 'Congratulation, You won!',
 		text: `With ${move} moves and ${star} in time ${time}.`,
@@ -152,6 +152,7 @@ function winGame() {
 			buildGame();
 		}
 	})
+	addResult({name,move,star,time});
 }
 
 function resetList(){
@@ -181,10 +182,10 @@ function leaderBoard() {
 	if (data) {
   		const results = JSON.parse(data);
 
-  		$('<div class="leaderboard"><h1>Leaderboard</h1><div>').insertAfter('.deck');
+  		$('<div class="leaderboard"><h1>Leaderboard</h1></div>').insertAfter('.deck');
 
   		for (const res of results ) {
-	  		$('.leaderboard').append('<h2> Moves:' + res.move + ' ' + res.star + '  ' + res.time + '</h2>');
+	  		$('.leaderboard').append('<div class="line"><div>' + res.name + '</div><span>' + res.move + ' moves</span><span>' + res.star + '</span><span>' + res.time + '</span></div>');
 	  	}
 	}
 }

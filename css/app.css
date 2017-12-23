@@ -208,3 +208,33 @@ h1 {
 .score-panel .restart {
     cursor: pointer;
 }
+
+/*
+ * Styles for leaderboard
+ */
+
+.leaderboard {
+    background-color: red;
+    width: 600px;
+    text-align: center;
+    padding-bottom: 2em;
+    margin-bottom: 2em;
+    border-radius: 10px;
+    box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
+    background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+}
+
+.leaderboard .line {
+    width: 100%;
+    margin-bottom: 1em;
+    display: flex;
+    -webkit-justify-content: space-around;
+            justify-content: space-around;
+    align-items: center;
+}
+
+.leaderboard span,
+.leaderboard div {
+    /*width: 110px;*/
+    flex: 0 0 110px;
+}
