@@ -140,19 +140,24 @@ function winGame() {
 	let star = $('.fa-star').length;
 	star += (star > 1 ? ' stars' : ' star');
 	const time = $('.timer').text();
-	let name = 'Anonymous';
 	swal({
 		title: 'Congratulation, You won!',
-		text: `With ${move} moves and ${star} in time ${time}.`,
+		html: `<p>With ${move} moves and ${star} in time ${time}.</p> <p>Insert your name for add to leaderboard:</p>`,
+		input: 'text',
 		type: 'success',
 		confirmButtonText: 'Play again?',
 		confirmButtonColor: 'green'
 	}).then((result) => {
 		if (result.value) {
+			const name = result.value;
+			addResult({name,move,star,time});
+			buildGame();
+		} else {
 			buildGame();
 		}
 	})
-	addResult({name,move,star,time});
+
+
 }
 
 function resetList(){
