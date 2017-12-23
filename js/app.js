@@ -203,6 +203,10 @@ function addResult(result){
 	  	}
 }
 
+function clearResults() {
+	localStorage.removeItem('results');
+}
+
 //----------------------STOPWATCH----------------------
 function startWatch () {
     timeUnit = setInterval(addTime, 1000);
