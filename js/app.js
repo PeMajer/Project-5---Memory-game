@@ -142,7 +142,7 @@ function winGame() {
 	const time = $('.timer').text();
 	swal({
 		title: 'Congratulation, You won!',
-		html: `<p>With ${move} moves and ${star} in time ${time}.</p> <p>Insert your name for add to leaderboard:</p>`,
+		html: `<p>With ${move} moves and ${star} in time ${time}.</p> <p>Insert your name for addition to leaderboard:</p>`,
 		input: 'text',
 		type: 'success',
 		confirmButtonText: 'Play again?',
