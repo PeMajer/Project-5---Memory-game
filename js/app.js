@@ -117,14 +117,13 @@ function compareCards(){
 function cardClose(targets) {
 	$(targets).removeClass('open');
 	$(targets).addClass('shaked');
-	$(targets).addClass('animated shake');
 	fastClicking = true;
 	setTimeout(function() {
-		$(targets).removeClass('animated shake show shaked');
+		$(targets).removeClass('show shaked');
 		$(targets).addClass('close');
 		resetList();
 		fastClicking = false;
-	},500);
+	},600);
 }
 
 function cardMatch(targets) {
