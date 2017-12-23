@@ -186,7 +186,7 @@ function leaderBoard() {
 	const data = localStorage.getItem('results');
 	if (data) {
   		const results = JSON.parse(data);
-
+  		results.sort((a, b) => a.move - b.move);
   		$('<div class="leaderboard"><h1>Leaderboard</h1></div>').insertAfter('.deck');
 
   		for (const res of results ) {
