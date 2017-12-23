@@ -1,4 +1,4 @@
-let cardSymbol = [		//Create a list that holds all of cards
+let cardSymbol = [		// Create a list that holds all of cards
 	'fa-diamond',
 	'fa-paper-plane-o',
 	'fa-anchor',
@@ -17,23 +17,25 @@ let cardSymbol = [		//Create a list that holds all of cards
 	'fa-cube'
 ];
 
-let cardList = [], targetList = [];		//init variables
+let cardList = [], targetList = [];		// init variables
 let move = 0, matched = 0;
 
-let firstClick = Boolean(true);
-let win = Boolean(false);
+let firstClick = Boolean(true);			// variable for checking first click
+let win = Boolean(false);				// variable for checking win game
 
-let fastClicking = Boolean(false);     //osetreni aby neslo kliknout na dalsi kartu behem zavirani predchozich karet
+let fastClicking = Boolean(false);     	// variable for checking fast clickings of cards
 
-let timeUnit;                          		//stopwatch variables
+let timeUnit;                          		//stopwatch variable
 let seconds = 0, minutes = 0, hours = 0;	//stopwatch variables
 
-buildGame();
-cardListener();
-restartListener();
+buildGame();			// start game
+cardListener();			// create cards listener
+restartListener();		// create restart button listener
 
 
-
+/**
+* @description Create reset button listener
+*/
 function restartListener() {
 	$('.restart').click(function() {
 		stopWatch();
@@ -41,56 +43,58 @@ function restartListener() {
 	});
 }
 
+/**
+* @description Create card listener
+*/
 function cardListener() {
-	$('ul').on('click','li', function (evt) {
-		let show = $(evt.target).hasClass('show');
-		let match = $(evt.target).hasClass('match');
-		if ( !(show || match || fastClicking) ) {    //osetreni aby nesla karta otocit dvakrat a neslo kliknout na dalsi kartu pokud se predchozi karty zaviraji
+	$('ul').on('click','li', function (evt) {			// listener target
+		let show = $(evt.target).hasClass('show');		// dection whether the card is open
+		let match = $(evt.target).hasClass('match');	// dection whether the card is in match cards
+		if ( !(show || match || fastClicking) ) {    	// can't click on open/match cards and can't click on card when other cards are  closing
 			cardOpen(evt.target);
 			addCardToList(evt.target);
 		}
 	});
 }
 
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
-
+/**
+* @description Shuffle the list of cards
+*/
 function shuffle(array) {
  	array.sort(function() { return 0.5 - Math.random() });
 }
 
+/**
+* @description Display the cards on the page
+*/
 function buildGame() {
-	move = 0;
+	move = 0;	   // seting variables on start's value
 	matched = 0;
 	resetList();
 	firstClick = true;
 	win = false;
-	clearWatch();   //reset stopwatch
- 	$('.moves').text(move);   //set 0  moves
-	$('.fa-star-o').removeClass('fa-star-o').addClass('fa-star');
-	$('.deck').text(''); //deleting cadrs
-
-	shuffle(cardSymbol);	  // shuffle cards
-
-	for (let i = 0; i < cardSymbol.length ; i++) {
+	clearWatch();			// reseting stopwatch
+ 	$('.moves').text(move);			// display 0 moves on page
+	$('.fa-star-o').removeClass('fa-star-o').addClass('fa-star');	// display three stars on page
+	$('.deck').text('');			// deleting cadrs
+	shuffle(cardSymbol);	  		// shuffle cards
+	for (let i = 0; i < cardSymbol.length ; i++) {		//loop through each card and create its HTML
 		$('.deck').append(`<li class="card"><i class="fa ${cardSymbol[i]}"></i></li>`);
 	}
-
 	leaderBoard();
 }
 
+/**
+* @description Open the card and start stopwatch if it is first open card
+*/
 function cardOpen(target) {
-	if ( firstClick ) {
+	if ( firstClick ) {		// first click check
 		startWatch();
 		firstClick = false;
 	}
 	$(target).removeClass('close');
 	$(target).addClass('show open');
-	$(target).children().addClass('show open');   //pridam i <i> classu show open, aby neslo klikat i na ikonu
+	$(target).children().addClass('show');   //pridam i <i> classu show open, aby neslo klikat i na ikonu
 }
 
 function addCardToList(target) {
