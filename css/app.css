@@ -236,7 +236,11 @@ h1 {
     margin-bottom: 1em;
 }
 
-.leaderboard span,
 .leaderboard div {
+    flex: 0 0 180px;
+}
+
+.leaderboard span {
     flex: 0 0 110px;
 }
+

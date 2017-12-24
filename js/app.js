@@ -85,7 +85,7 @@ function buildGame() {
 }
 
 /**
-* @description Open the card and start stopwatch if it is first open card
+* @description Open the card, display the card's symbol and start stopwatch if it is first open card
 */
 function cardOpen(target) {
 	if ( firstClick ) {		// first click check
@@ -94,57 +94,75 @@ function cardOpen(target) {
 	}
 	$(target).removeClass('close');
 	$(target).addClass('show open');
-	$(target).children().addClass('show');   //pridam i <i> classu show open, aby neslo klikat i na ikonu
+	$(target).children().addClass('show');   //add class show to <i> tags - can't click od it
 }
 
+/**
+* @description add the card and jquery target to a list of open cards
+* @param {object} target - jquery target of card
+*/
 function addCardToList(target) {
-	let card = $(target).children().attr('class'); //zacileni na ikonu ktera je umistena v targetu - li;
+	let card = $(target).children().attr('class');			// getting a card symbol
 	if (cardList.length < 2) {
-		cardList.push(card);
-		targetList.push(target);  //pole pro ukladani jquerry cilu - karet
+		cardList.push(card);			// add symbol of open card to array/list
+		targetList.push(target);  		// add target of open card to array/list
 	}
-	if (cardList.length === 2) {
+	if (cardList.length === 2) {		// compare cards if two cards open
 		compareCards();
 	}
 }
 
+/**
+* @description compare two open cards
+*/
 function compareCards(){
-	cardList[0] === cardList[1] ? cardMatch(targetList) : cardClose(targetList);
-	moveCounter();
-	displayStars();
-	if (win) {
+	cardList[0] === cardList[1] ? cardMatch(targetList) : cardClose(targetList);		//compare symbol of cards
+	moveCounter();		// increase moves
+	displayStars();		// display stars
+	if (win) {			// win game check
 		stopWatch();
 		winGame();
 	}
 }
 
+/**
+* @description turn the cards back with css animation
+* @param {array} targets - targets of click
+*/
 function cardClose(targets) {
 	$(targets).removeClass('open');
-	$(targets).addClass('shaked');
-	fastClicking = true;
+	$(targets).addClass('shaked');		// shake with card
+	fastClicking = true;				// can't click to other card when animation run
 	setTimeout(function() {
 		$(targets).removeClass('show shaked');
-		$(targets).addClass('close');
-		resetList();
+		$(targets).addClass('close');			// turn back animation
+		resetList();			// reset list of card's symbols and targets
 		fastClicking = false;
 	},600);
 }
 
+/**
+* @description if the cards do match, lock the cards in the open position
+* @param {array} targets - targets of click
+*/
 function cardMatch(targets) {
 	$(targets).removeClass('open');
-	$(targets).addClass('match');
+	$(targets).addClass('match');			// match animation
 	matched++;
-	if (matched === cardSymbol.length/2) {
+	if (matched === cardSymbol.length/2) {			// when all cards are "match" then win the game
 		win = true;
 	}
-	resetList();
+	resetList();			// reset list of card's symbols and targets
 }
 
+/**
+* @description if it's win game, show congratulation popup window with information about game
+*/
 function winGame() {
-	let star = $('.fa-star').length;
+	let star = $('.fa-star').length;		// geting number of stars
 	star += (star > 1 ? ' stars' : ' star');
-	const time = $('.timer').text();
-	swal({
+	const time = $('.timer').text();		// getting time
+	swal({			// popup windows with sweet alert 2
 		title: 'Congratulation, You won!',
 		html: `<p>With ${move} moves and ${star} in time ${time}.</p> <p>Insert your name for addition to leaderboard:</p>`,
 		input: 'text',
@@ -153,74 +171,100 @@ function winGame() {
 		confirmButtonColor: 'green'
 	}).then((result) => {
 		if (result.value) {
-			const name = result.value;
-			addResult({name,move,star,time});
-			buildGame();
+			const name = result.value;			// when name is enter
+			addResult({name,move,star,time});	// save result to leaderboard - local storage
+			buildGame();			// create new game
 		} else {
 			buildGame();
 		}
 	})
-
-
 }
 
+/**
+* @description reset lists with open card symbol and targets of open cards
+*/
 function resetList(){
-	cardList = []; //vynuluje pole
+	cardList = [];
 	targetList = [];
 }
 
+/**
+* @description increase number of moves
+*/
 function moveCounter() {
 	move++;
 	$('.moves').text(move);
 }
 
+/**
+* @description decrase number of stars
+*/
 function displayStars() {
 	if (move > 18) {
-		$('#firststar').removeClass('fa-star').addClass('fa-star-o');
+		$('#firststar').removeClass('fa-star').addClass('fa-star-o');			//hide 3rd star
 	} else if (move > 15 ) {
-		$('#secondstar').removeClass('fa-star').addClass('fa-star-o');
+		$('#secondstar').removeClass('fa-star').addClass('fa-star-o');			// hide 2nd star
 	} else if (move > 12) {
-		$('#thirdstar').removeClass('fa-star').addClass('fa-star-o');
+		$('#thirdstar').removeClass('fa-star').addClass('fa-star-o');			// hidde 1st star
 	}
 }
 
 //----------------------LEADERBOARD----------------------
-function leaderBoard() {
-	$('.leaderboard').remove();
-	const data = localStorage.getItem('results');
-	if (data) {
-  		const results = JSON.parse(data);
-  		results.sort((a, b) => a.move - b.move);
-  		$('<div class="leaderboard"><h1>Leaderboard</h1></div>').insertAfter('.deck');
 
-  		for (const res of results ) {
+/**
+* @description show leaderboard
+*/
+function leaderBoard() {
+	$('.leaderboard').remove();				// delete leaderboard
+	const data = localStorage.getItem('results');		// load data from local storage (from variable results)
+	if (data) {
+  		const results = JSON.parse(data);					// save object to variable results
+  		results.sort((a, b) => a.move - b.move);			// sort this array of objects according to moves
+  		$('<div class="leaderboard"><h1>Leaderboard</h1></div>').insertAfter('.deck');			// display leaderboard
+
+  		for (const res of results ) {			// display leaderboard
 	  		$('.leaderboard').append('<div class="line"><div>' + res.name + '</div><span>' + res.move + ' moves</span><span>' + res.star + '</span><span>' + res.time + '</span></div>');
 	  	}
 	}
 }
 
+/**
+* @description save data to local storage
+* @param {object} result - game record with name, moves, stars and time
+*/
 function addResult(result){
-	const data = localStorage.getItem('results');
+	const data = localStorage.getItem('results');			// load data from local storage (from variable results)
 	if (data) {
 	  		let results = JSON.parse(data);
 	  		results.push(result);
-	  		localStorage.setItem('results', JSON.stringify(results));
+	  		localStorage.setItem('results', JSON.stringify(results));			// save results to storage
 	  	} else {
-	  		let results = [];
+	  		let results = [];			// create new local storage variable
 	  		results.push(result);
-	  		localStorage.setItem('results', JSON.stringify(results));
+	  		localStorage.setItem('results', JSON.stringify(results));			// save results to storage
 	  	}
 }
 
+/**
+* @description manual delete results from local storage
+*/
 function clearResults() {
 	localStorage.removeItem('results');
 }
 
 //----------------------STOPWATCH----------------------
+
+/**
+* @description start stopwatch
+*/
 function startWatch () {
-    timeUnit = setInterval(addTime, 1000);
+    timeUnit = setInterval(addTime, 1000);			// repeat with 1s delay -> increase the time by one second
 }
 
+
+/**
+* @description increase time and display it
+*/
 function addTime() {
     seconds++;
     if (seconds >= 60) {
@@ -234,24 +278,20 @@ function addTime() {
     $('.timer').text( ((hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds)) );
 }
 
+/**
+* @description stop stopwatch
+*/
 function stopWatch() {
     clearInterval(timeUnit);
 }
 
+
+/**
+* @description set stopwatch to default time - 00:00:00
+*/
 function clearWatch() {
-    $('.timer').text('00:00:00');
+    $('.timer').text('00:00:00');		// display default time on page
     seconds = 0;
     minutes = 0;
     hours = 0;
 }
-
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
