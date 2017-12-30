@@ -200,9 +200,7 @@ function moveCounter() {
 * @description decrase number of stars
 */
 function displayStars() {
-	if (move > 18) {
-		$('#firststar').removeClass('fa-star').addClass('fa-star-o');			//hide 3rd star
-	} else if (move > 15 ) {
+	if (move > 15 ) {
 		$('#secondstar').removeClass('fa-star').addClass('fa-star-o');			// hide 2nd star
 	} else if (move > 12) {
 		$('#thirdstar').removeClass('fa-star').addClass('fa-star-o');			// hidde 1st star
