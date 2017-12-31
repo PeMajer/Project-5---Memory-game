@@ -1,12 +1,12 @@
 # Memory Game
-Memory game is a fun game built using HTML, CSS, and JavaScript. The goal of the game is find two cards with same symbol in as few moves as possible.
+Memory game is a game built using HTML, CSS, and JavaScript. The goal of the game is find two cards with same symbol in as few moves as possible.
 
 ## Game Description
 The game board consists of sixteen "cards" arranged in a grid. The deck is made up of eight different pairs of cards, each with different symbols on one side. The cards are arranged randomly on the grid with the symbol face down. The gameplay rules are very simple: Flip over two hidden cards at a time to locate the ones that match.
 
 The game displays:
 * Star rating (from 1-3) that reflects the player's performance,
-* current number of moves a p;ayer has made,
+* current number of moves a player has made,
 * time from the beginning of the game.
 
 A restart button allows the player to reset the game board, the timer, and the star rating.
